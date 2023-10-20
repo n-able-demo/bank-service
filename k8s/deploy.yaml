@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-service
+  namespace: apps-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bank-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: bank-service
+        deployment: bank-service
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/apps-demo/bank-service:latest
+        imagePullPolicy: Always
+        name: bank-service
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
+        - containerPort: 8778
+          protocol: TCP
+      restartPolicy: Always
