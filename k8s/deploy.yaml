@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: bank-service
   namespace: pipeline-demo
+  labels:
+    app.kubernetes.io/part-of: bank-app
 spec:
   replicas: 1
   selector:
@@ -20,14 +22,14 @@ spec:
         deployment: bank-service
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/pipeline-demo/bank-service:latest
-        imagePullPolicy: Always
-        name: bank-service
-        ports:
-        - containerPort: 8080
-          protocol: TCP
-        - containerPort: 8443
-          protocol: TCP
-        - containerPort: 8778
-          protocol: TCP
+        - image: image-registry.openshift-image-registry.svc:5000/pipeline-demo/bank-service:latest
+          imagePullPolicy: Always
+          name: bank-service
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+            - containerPort: 8778
+              protocol: TCP
       restartPolicy: Always
