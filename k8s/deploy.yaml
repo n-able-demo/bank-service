@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bank-service
-  namespace: apps-demo
+  namespace: pipeline-demo
 spec:
   replicas: 1
   selector:
@@ -20,7 +20,7 @@ spec:
         deployment: bank-service
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/apps-demo/bank-service:latest
+      - image: image-registry.openshift-image-registry.svc:5000/pipeline-demo/bank-service:latest
         imagePullPolicy: Always
         name: bank-service
         ports:
